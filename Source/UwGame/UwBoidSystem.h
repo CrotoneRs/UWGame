@@ -1,0 +1,32 @@
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Subsystems/WorldSubsystem.h"
+#include "UwBoidSystem.generated.h"
+
+class UUwBoidComponent;
+
+UCLASS()
+class UWGAME_API UUwBoidSubsystem : public UTickableWorldSubsystem
+{
+    GENERATED_BODY()
+
+public:
+
+    void RegisterBoid(UUwBoidComponent* BoidComponent);
+    void UnRegisterBoid(UUwBoidComponent* BoidComponent);
+
+    virtual void Tick(float DeltaTime) override;
+
+    virtual bool IsTickable() const override { return true; }
+
+    virtual TStatId GetStatId() const override
+    {
+        RETURN_QUICK_DECLARE_CYCLE_STAT(UBoidSubsystem, STATGROUP_Tickables);
+    }
+
+private:
+
+    UPROPERTY()
+    TArray<UUwBoidComponent*> CurrentBoids;
+};
