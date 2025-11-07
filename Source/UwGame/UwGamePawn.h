@@ -9,10 +9,15 @@ class AUwGamePawn : public APawn
 {
     GENERATED_BODY()
 
+    UPROPERTY(EditDefaultsOnly, Category = "Input")
+    class UInputAction* MoveAction;
+
 protected:
 
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
     void MoveForward(float Value);
     void MoveRight(float Value);
+
+    void Move(const struct FInputActionValue& Value);
 };
