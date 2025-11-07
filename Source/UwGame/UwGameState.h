@@ -12,8 +12,11 @@ class AUwGameState : public AGameStateBase
 public:
     AUwGameState() { bReplicates = false; }
 
-    UPROPERTY(Replicated, BlueprintReadOnly, Category="Game State")
+    UPROPERTY(ReplicatedUsing = OnTimeRemainingCallback, BlueprintReadOnly, Category = "Game State")
     float RemainingTime;
+
+    UFUNCTION()
+    void OnTimeRemainingCallback();
 
 protected:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;

@@ -18,7 +18,38 @@ void AUwGameMode::BeginPlay()
 
     AUwGameState* UwGameState = GetGameState<AUwGameState>();
 
-    UwGameState->RemainingTime;
+    if (UwGameState)
+    {
+        UwGameState->RemainingTime = 60.0f;
+    }
 
     // LOGs
+}
+
+void AUwGameMode::Tick(float DeltaTime)
+{
+    AUwGameState* UwGameState = GetGameState<AUwGameState>();
+
+    if (UwGameState)
+    {
+        if (UwGameState->RemainingTime > 0.0f)
+        {
+            UwGameState->RemainingTime -= DeltaTime;
+
+            if (GEngine)
+            {
+                GEngine->AddOnScreenDebugMessage(0, 1.0f, FColor::Yellow, "Remaining Time Update.");
+            }
+
+            if (UwGameState->RemainingTime <= 0.0f)
+            {
+                //UE_LOG(LogTemp, Info, TEXT("RemainingTime: %f"), UwGameState->RemainingTime);
+
+                if (GEngine)
+                {
+                    GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Yellow, "Remaining Time Finished.");
+                }
+            }
+        }
+    }
 }
