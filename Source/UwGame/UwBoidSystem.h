@@ -13,6 +13,8 @@ class UWGAME_API UUwBoidSubsystem : public UTickableWorldSubsystem
 
 public:
 
+    UUwBoidSubsystem();
+
     void RegisterBoid(UUwBoidComponent* BoidComponent);
     void UnRegisterBoid(UUwBoidComponent* BoidComponent);
 
@@ -26,6 +28,18 @@ public:
     }
 
 private:
+
+    FVector ApplyAlignment(uint32 BoidID);
+    FVector ApplyCohesion(uint32 BoidID);
+    FVector ApplySeparation(uint32 BoidID);
+
+private:
+
+    float GroupRadius;
+
+    float AlignmentWeight;
+    float CohesionWeight;
+    float SeparationWeight;
 
     UPROPERTY()
     TArray<UUwBoidComponent*> CurrentBoids;

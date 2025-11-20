@@ -10,6 +10,11 @@ class UWGAME_API UUwBoidComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+	friend class UUwBoidSubsystem;
+
+	uint32 BiodID = 0u;
+
+	FVector Position;
 	FVector Velocity;
 
 public:	
