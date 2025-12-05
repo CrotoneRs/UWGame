@@ -1,6 +1,7 @@
 #include "UwGamePawn.h"
 
 #include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
 
 void AUwGamePawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
@@ -9,6 +10,7 @@ void AUwGamePawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputCo
     if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
     {
         EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AUwGamePawn::Move);
+        EnhancedInputComponent->BindAction(CameraAction, ETriggerEvent::Triggered, this, &AUwGamePawn::Camera);
     }
     else
     {
@@ -63,5 +65,16 @@ void AUwGamePawn::Move(const FInputActionValue& Value)
 
         AddMovementInput(ForwardVector, MovementVector.X);
         AddMovementInput(RightVector, MovementVector.Y);
+    }
+}
+
+void AUwGamePawn::Camera(const struct FInputActionValue& Value)
+{
+    FVector2D CameraVector = Value.Get<FVector2D>();
+
+    if (AController* PawnController = GetController())
+    {
+        AddControllerYawInput(CameraVector.X);
+        AddControllerPitchInput(CameraVector.Y);
     }
 }

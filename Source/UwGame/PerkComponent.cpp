@@ -60,9 +60,9 @@ void APerkActor::EndPlay(const EEndPlayReason::Type Reason)
 void APerkActor::OnComponentBeginOverlap(UPrimitiveComponent* ThisComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (UPerkComponent* PerkComponent = Cast<UPerkComponent>(OtherComponent))
+	if (UPerkComponent* PerkComponentLocal = Cast<UPerkComponent>(OtherComponent))
 	{
-		PerkComponent->ApplyPerk();
+		PerkComponentLocal->ApplyPerk();
 	}
 
 	if (GEngine)
